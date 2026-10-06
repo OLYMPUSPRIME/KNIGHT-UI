@@ -1,2 +1,5 @@
-import KnightQuest from "@/components/KnightQuest";
-export default function Home(){ return <KnightQuest/>; }
+import KingdomHome from "@/components/KingdomHome";
+
+export default function Home() {
+  return <KingdomHome />;
+}
