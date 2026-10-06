@@ -75,3 +75,40 @@ function Trial({slug,onDone}:{slug:string;onDone:()=>void}){
  return <div className="unique"><h3>⚔ Forging Order</h3><p>Place the pieces into a clean workflow sequence.</p><div className="pieces">{["Write HCL","Run command","Review result","Commit"].map(x=><button className={state.includes(x)?"chosen":""} onClick={()=>add(x)} key={x}>{x}</button>)}</div><div className="placed">{state.map((x,i)=><span key={x}>{i+1}. {x}</span>)}</div><button className="gold" disabled={state.length!==4} onClick={()=>complete(true)}>Complete Trial</button><button className="reset" onClick={reset}><RotateCcw size={15}/> Reset game</button></div>
 
 }
+
+
+function ToolView({tool}:{tool:Tool}){
+ const [picked,setPicked]=useState<string|null>(null);
+ const [done,setDone]=useState(false);
+ const [tick,setTick]=useState(0);
+ const vars=useMemo(()=>[...tool.vars].sort(()=>Math.random()-.5),[tool.slug,tick]);
+ return <section className="page tool">
+  <Link href="/" className="back">← Return to Kingdom</Link>
+  <div className="toolHead">
+   <div><small className="eyebrow">{tool.cat.toUpperCase()} · {tool.game.toUpperCase()}</small><h1>{tool.title}</h1><code>$ {tool.name}</code></div>
+   <div className="crest">⚔</div>
+  </div>
+  <div className="learn">
+   <article><small>📜 WHAT IT IS</small><p>{tool.purpose}</p></article>
+   <article><small>🕯 WHEN USED</small><p>{tool.when}</p></article>
+   <article><small>🛡 WHAT IT DOES</small><p>It performs its specific role in the infrastructure workflow and works with the other gates.</p></article>
+   <article className="warning"><small>⚠ LIMITS</small><p>It does not replace the other quality, security, policy or deployment controls.</p></article>
+  </div>
+  <div className="panel">
+   <small className="eyebrow">🗺 COMMAND VARIATIONS</small>
+   <div className="exactFlow">{tool.vars.map((v,i)=><span key={v}><b>{i+1}</b>{v}</span>)}</div>
+  </div>
+  <div className="game">
+   <div className="gameTitle">
+    <div><small className="eyebrow">⚔ {tool.game.toUpperCase()}</small><h2>Drag a command variation into the chamber</h2><p>The answer is hidden. Choose or drag a variation, then complete the unique trial. Only after completion will KNIGHT reveal the result.</p></div>
+    <span>♜</span>
+   </div>
+   <div className="drop" onDragOver={e=>e.preventDefault()} onDrop={e=>{e.preventDefault();setPicked(e.dataTransfer.getData("text"));setDone(false)}}>{picked?<code>{picked}</code>:"Drop a command variation here"}</div>
+   <div className="vars">{vars.map(v=><button draggable onDragStart={e=>e.dataTransfer.setData("text",v)} onClick={()=>{setPicked(v);setDone(false)}} className={picked===v?"chosen":""} key={v}>{v}</button>)}</div>
+   {picked&&<Trial slug={tool.slug} onDone={()=>setDone(true)}/>}
+   {done&&<div className={picked===tool.answer?"correct":"wrong"}>{picked===tool.answer?<><Check/><div><b>Correct — trial mastered.</b><p>Your command variation matches this scenario.</p></div></>:<><X/><div><b>Wrong selection.</b><p>You chose <code>{picked}</code>. The correct variation is <code>{tool.answer}</code>.</p></div>}</div>}
+   <div className="actions"><button className="reset" onClick={()=>{setPicked(null);setDone(false);setTick(x=>x+1)}}><RotateCcw size={15}/> Reset chamber</button></div>
+  </div>
+  {done&&<div className="after"><div className="panel"><small className="eyebrow">🧠 AFTER THE TRIAL · BACKEND</small><p>{tool.backend}</p></div><div className="panel"><small className="eyebrow">💻 EXPECTED OUTPUT</small><pre>{tool.output}</pre></div></div>}
+ </section>
+}
