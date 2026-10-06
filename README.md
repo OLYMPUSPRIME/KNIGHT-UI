@@ -1,48 +1,45 @@
-# ⚔️ KNIGHT-UI
+# ⚔️ KNIGHT-UI — Terraform Quest
 
-> Interactive Terraform & DevSecOps learning experience powered by Next.js.
+The first working Next.js version of the KNIGHT Terraform + DevSecOps interactive learning demo.
 
-## 🎯 Purpose
+## 🎮 Mark_1 MVP
 
-KNIGHT-UI is the frontend companion to the KNIGHT Infrastructure-as-Code demonstration. It turns Terraform and DevSecOps workflows into an interactive, game-style learning experience.
-
-## 🧭 Learning Path
-
-`terraform fmt` → `terraform init` → `terraform validate` → Security Scanners → Policy-as-Code → `terraform plan` → `terraform apply`
+- 🏰 Command Center
+- 🗺️ Campaign map
+- 🧩 Interactive command-choice missions
+- 💻 Simulated Terraform terminal
+- 🛡️ Security scanner mission
+- 🔐 OPA / Conftest policy mission
+- 📋 Terraform plan and apply missions
+- ⭐ XP, levels and ranks
+- 📱 Responsive UI
 
 ## 🛠️ Stack
 
-- Next.js
+- Next.js App Router
 - React
 - TypeScript
-- CSS
 - Lucide React
-- Vercel-ready deployment
+- CSS
+- Vercel-ready
 
-## 🌿 Branch Strategy
-
-| Branch | Purpose |
-|---|---|
-| `main` | Project documentation and stable baseline |
-| `Mark_1` | First working KNIGHT Terraform Quest application |
-
-## 🔐 Security Principle
-
-The browser UI simulates Terraform execution for learning purposes. Production Terraform or AWS commands should run in controlled CI/CD runners with least-privilege credentials, approval gates, and destructive-operation safeguards.
-
-## 🚀 Local Development
-
-After checking out `Mark_1`:
+## 🚀 Run locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-## ☁️ Deployment
+Open `http://localhost:3000`.
 
-The application is designed for deployment on Vercel using the Next.js framework preset.
+## ☁️ Vercel
 
----
+Import `OLYMPUSPRIME/KNIGHT-UI` into Vercel and select the `Mark_1` branch when configuring the project if you want this version deployed.
 
-**KNIGHT-UI — Learn Infrastructure by doing. ⚔️**
+## 🔐 Security
+
+The terminal is intentionally simulated. Real Terraform/AWS execution should run in controlled GitHub Actions runners or another isolated execution environment using least-privilege credentials, policy gates and approval controls.
+
+## 🌿 Branch
+
+`Mark_1` = first working KNIGHT Terraform Quest implementation.
